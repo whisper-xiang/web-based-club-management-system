@@ -38,6 +38,10 @@
 
 ### 前台界面
 ![alt text](image-1.png)
+
+### 论文
+![alt text](image-2.png)
+
 ## 技术栈
 
 ### 后端框架
