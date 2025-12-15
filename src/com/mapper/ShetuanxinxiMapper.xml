@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.ShetuanxinxiMapper">
+  <resultMap id="BaseResultMap" type="com.entity.Shetuanxinxi">
+    <id column="id" jdbcType="INTEGER" property="id" />
+	<result column="yonghuming" jdbcType="VARCHAR" property="yonghuming" />
+    <result column="xingming" jdbcType="VARCHAR" property="xingming" />
+    <result column="shetuanmingcheng" jdbcType="VARCHAR" property="shetuanmingcheng" />
+    <result column="shetuanleixing" jdbcType="VARCHAR" property="shetuanleixing" />
+    <result column="tupian" jdbcType="VARCHAR" property="tupian" />
+    <result column="dizhi" jdbcType="VARCHAR" property="dizhi" />
+    <result column="gaiyao" jdbcType="VARCHAR" property="gaiyao" />
+    <result column="jianjie" jdbcType="VARCHAR" property="jianjie" />
+    <result column="issh" jdbcType="VARCHAR" property="issh" />
+    
+    <result column="addtime" jdbcType="VARCHAR" property="addtime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, yonghuming,xingming,shetuanmingcheng,shetuanleixing,tupian,dizhi,gaiyao,jianjie,issh, addtime
+  </sql>
+  <select id="quchongShetuanxinxi"  parameterType="java.util.Map" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from shetuanxinxi 
+    where yonghuming = #{yonghuming,jdbcType=VARCHAR} limit 0,1
+  </select>
+ <select id="getCount"   resultType="int" parameterType="java.util.Map" >
+    select  count(*) from shetuanxinxi  where 1=1
+    <if test="yonghuming!=null">and yonghuming like  concat('%',#{yonghuming,jdbcType=VARCHAR},'%')</if>
+     <if test="xingming!=null">and xingming like  concat('%',#{xingming,jdbcType=VARCHAR},'%')</if>
+     <if test="shetuanmingcheng!=null">and shetuanmingcheng like  concat('%',#{shetuanmingcheng,jdbcType=VARCHAR},'%')</if>
+     <if test="shetuanleixing!=null">and shetuanleixing like  concat('%',#{shetuanleixing,jdbcType=VARCHAR},'%')</if>
+     <if test="tupian!=null">and tupian like  concat('%',#{tupian,jdbcType=VARCHAR},'%')</if>
+     <if test="dizhi!=null">and dizhi like  concat('%',#{dizhi,jdbcType=VARCHAR},'%')</if>
+     <if test="gaiyao!=null">and gaiyao like  concat('%',#{gaiyao,jdbcType=VARCHAR},'%')</if>
+     <if test="jianjie!=null">and jianjie like  concat('%',#{jianjie,jdbcType=VARCHAR},'%')</if>
+     <if test="issh!=null">and issh like  concat('%',#{issh,jdbcType=VARCHAR},'%')</if>
+     
+  </select> 
+  <select id="getAll"   resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select   <include refid="Base_Column_List" /> from shetuanxinxi  where 1=1
+    <if test="yonghuming!=null">
+    and yonghuming =#{yonghuming}
+    </if>
+  </select>
+  
+  <select id="getsyshetuanxinxi1"   resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select   <include refid="Base_Column_List" /> from shetuanxinxi  where issh='是'
+    limit 0,8
+  </select>
+  <select id="getsyshetuanxinxi2"   resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select   <include refid="Base_Column_List" /> from shetuanxinxi  where 1=1
+    limit 0,8
+  </select>
+  <select id="getsyshetuanxinxi3"   resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select   <include refid="Base_Column_List" /> from shetuanxinxi  where 1=1
+    limit 0,8
+  </select>
+  
+   <select id="getByPage" parameterType="java.util.Map" resultMap="BaseResultMap">
+     select  <include refid="Base_Column_List" /> 
+     from shetuanxinxi where 1=1 
+     <if test="yonghuming!=null">and yonghuming like  concat('%',#{yonghuming,jdbcType=VARCHAR},'%')</if>
+     <if test="xingming!=null">and xingming like  concat('%',#{xingming,jdbcType=VARCHAR},'%')</if>
+     <if test="shetuanmingcheng!=null">and shetuanmingcheng like  concat('%',#{shetuanmingcheng,jdbcType=VARCHAR},'%')</if>
+     <if test="shetuanleixing!=null">and shetuanleixing like  concat('%',#{shetuanleixing,jdbcType=VARCHAR},'%')</if>
+     <if test="tupian!=null">and tupian like  concat('%',#{tupian,jdbcType=VARCHAR},'%')</if>
+     <if test="dizhi!=null">and dizhi like  concat('%',#{dizhi,jdbcType=VARCHAR},'%')</if>
+     <if test="gaiyao!=null">and gaiyao like  concat('%',#{gaiyao,jdbcType=VARCHAR},'%')</if>
+     <if test="jianjie!=null">and jianjie like  concat('%',#{jianjie,jdbcType=VARCHAR},'%')</if>
+     <if test="issh!=null">and issh like  concat('%',#{issh,jdbcType=VARCHAR},'%')</if>
+     
+	 order by id desc
+     <if test="pageno!=null and pageSize!=null">
+     limit #{pageno},#{pageSize}
+     </if>
+     </select>
+	 
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from shetuanxinxi
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from shetuanxinxi
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.entity.Shetuanxinxi">
+    insert into shetuanxinxi (id, yonghuming,xingming,shetuanmingcheng,shetuanleixing,tupian,dizhi,gaiyao,jianjie, addtime)
+    values (#{id,jdbcType=INTEGER}, #{yonghuming,jdbcType=VARCHAR},#{xingming,jdbcType=VARCHAR},#{shetuanmingcheng,jdbcType=VARCHAR},#{shetuanleixing,jdbcType=VARCHAR},#{tupian,jdbcType=VARCHAR},#{dizhi,jdbcType=VARCHAR},#{gaiyao,jdbcType=VARCHAR},#{jianjie,jdbcType=VARCHAR}, #{addtime,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.entity.Shetuanxinxi">
+    insert into shetuanxinxi
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="yonghuming != null"> yonghuming, </if>
+      <if test="xingming != null"> xingming, </if>
+      <if test="shetuanmingcheng != null"> shetuanmingcheng, </if>
+      <if test="shetuanleixing != null"> shetuanleixing, </if>
+      <if test="tupian != null"> tupian, </if>
+      <if test="dizhi != null"> dizhi, </if>
+      <if test="gaiyao != null"> gaiyao, </if>
+      <if test="jianjie != null"> jianjie, </if>
+      
+      <if test="addtime != null">
+        addtime,
+      </if>
+      
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="yonghuming != null"> #{yonghuming,jdbcType=VARCHAR},</if>
+      <if test="xingming != null"> #{xingming,jdbcType=VARCHAR},</if>
+      <if test="shetuanmingcheng != null"> #{shetuanmingcheng,jdbcType=VARCHAR},</if>
+      <if test="shetuanleixing != null"> #{shetuanleixing,jdbcType=VARCHAR},</if>
+      <if test="tupian != null"> #{tupian,jdbcType=VARCHAR},</if>
+      <if test="dizhi != null"> #{dizhi,jdbcType=VARCHAR},</if>
+      <if test="gaiyao != null"> #{gaiyao,jdbcType=VARCHAR},</if>
+      <if test="jianjie != null"> #{jianjie,jdbcType=VARCHAR},</if>
+      
+      <if test="addtime != null">
+        #{addtime,jdbcType=VARCHAR},
+      </if>
+      
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.entity.Shetuanxinxi">
+    update shetuanxinxi
+    <set>
+	  <if test="yonghuming != null"> yonghuming = #{yonghuming,jdbcType=VARCHAR},</if>
+      <if test="xingming != null"> xingming = #{xingming,jdbcType=VARCHAR},</if>
+      <if test="shetuanmingcheng != null"> shetuanmingcheng = #{shetuanmingcheng,jdbcType=VARCHAR},</if>
+      <if test="shetuanleixing != null"> shetuanleixing = #{shetuanleixing,jdbcType=VARCHAR},</if>
+      <if test="tupian != null"> tupian = #{tupian,jdbcType=VARCHAR},</if>
+      <if test="dizhi != null"> dizhi = #{dizhi,jdbcType=VARCHAR},</if>
+      <if test="gaiyao != null"> gaiyao = #{gaiyao,jdbcType=VARCHAR},</if>
+      <if test="jianjie != null"> jianjie = #{jianjie,jdbcType=VARCHAR},</if>
+      
+      <if test="addtime != null">
+        addtime = #{addtime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  
+  
+  <update id="updateByPrimaryKey" parameterType="com.entity.Shetuanxinxi">
+    update shetuanxinxi
+    set yonghuming = #{yonghuming,jdbcType=VARCHAR},xingming = #{xingming,jdbcType=VARCHAR},shetuanmingcheng = #{shetuanmingcheng,jdbcType=VARCHAR},shetuanleixing = #{shetuanleixing,jdbcType=VARCHAR},tupian = #{tupian,jdbcType=VARCHAR},dizhi = #{dizhi,jdbcType=VARCHAR},gaiyao = #{gaiyao,jdbcType=VARCHAR},jianjie = #{jianjie,jdbcType=VARCHAR},  addtime = #{addtime,jdbcType=VARCHAR} where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
